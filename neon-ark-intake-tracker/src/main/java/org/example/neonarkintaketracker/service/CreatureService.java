@@ -1,0 +1,35 @@
+package org.example.neonarkintaketracker.service;
+import org.example.neonarkintaketracker.entity.Creature;
+import org.example.neonarkintaketracker.repository.CreatureRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+/*
+ * Thin service for now.
+ * Keeps the controller clean and gives us a place to add
+ * validation, DTO mapping, and business rules later.
+ */
+@Service
+
+public class CreatureService {
+    private final CreatureRepository repository;
+
+    public CreatureService(CreatureRepository repository) {
+        this.repository = repository;
+    }
+
+    /*
+     * Return every creature currently in the database.
+     * This is the "Read" operation for GET /api/creatures
+     */
+    public List<Creature> getAllCreatures() {
+        return repository.findAll();
+    }
+
+    // NEW: Return one creature by id (Optional = may not exist)
+    public Optional<Creature> getCreatureById(Long id) {
+        return repository.findById(id);
+    }
+}
