@@ -18,11 +18,12 @@ import java.util.Scanner;
 public class NeonarkCliApplication {
 
     public static void main(String[] args) {
+        String csvPath = "wardens.csv";
 
         Scanner scanner = new Scanner(System.in);
 
         try {
-            Menu mainmenu = new Menu(scanner);
+            Menu mainmenu = new Menu(scanner, csvPath);
             mainmenu.showMenu();
         } finally {
              scanner.close();

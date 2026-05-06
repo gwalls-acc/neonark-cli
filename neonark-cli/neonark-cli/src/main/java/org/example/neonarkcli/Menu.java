@@ -10,13 +10,29 @@
 */
 
 package org.example.neonarkcli;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
     private final Scanner scanner;
+    private final List<Warden> database = new ArrayList<>();
+    private final FileService fileService = new FileService();
 
-    public Menu(Scanner scanner){
+    public Menu(Scanner scanner, String csvPath) {
         this.scanner = scanner;
+        // 2. THIS IS WHERE IT GETS FILLED
+        // We load the CSV data into that list immediately.
+        database.addAll(fileService.loadWardensFromCSV("wardens.csv"));
+    }
+
+    private Warden findWardenById(String id) {
+        for (Warden w : database) {
+            if (w.getId().equalsIgnoreCase(id)) {
+                return w;
+            }
+        }
+        return null;
     }
 
     public void showMenu()
@@ -45,7 +61,14 @@ public class Menu {
                     System.out.println("\nNew Warden Added");
                     break;
                 case 2:
-                    System.out.println("\nViewing list of Wardens");
+                    System.out.println("\n" + "=".repeat(150));
+                    System.out.printf(
+                            "%-12s | %-12s | %-17s | %-25s | %-10s | %-8s | %-10s | %-16s | %-10s%n",
+                            "FIRST NAME", "LAST NAME", "IDENTITY (PID)", "EMAIL", "ROLE", "LEVEL", "STATUS", "START DATE", "END DATE"
+                    );
+                    System.out.println("-".repeat(150));
+
+                    database.forEach(System.out::println);
                     break;
                 case 3:
                     System.out.println("\nUpdating Warden");
