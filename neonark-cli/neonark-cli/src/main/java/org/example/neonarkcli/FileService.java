@@ -4,7 +4,7 @@
   Assignment: Project 4
   Due Date: 05/14/2026
   Course/Section: COSC 4301 – Section 1
-  File Name: FileSErvice.java
+  File Name: FileService.java
   Purpose: This is a helper class for processing CSV files
 */
 

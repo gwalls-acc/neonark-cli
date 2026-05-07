@@ -1,8 +1,10 @@
 package org.example.neonarkcli;
 import java.time.LocalDate;
+import java.util.Scanner;
 
 
-    public class Warden {
+
+public class Warden {
         private  String firstName;
         private  String lastName;
         private String pidType;
@@ -50,5 +52,6 @@ import java.time.LocalDate;
         public String getId() {
             return pid;
         }
+
 
 }
