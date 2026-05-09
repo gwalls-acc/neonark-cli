@@ -74,6 +74,10 @@ public class Warden {
             return role;
         }
 
+        public String getLevel() {
+            return level;
+        }
+
         public String getStatus() {
             return status;
         }
@@ -82,7 +86,7 @@ public class Warden {
             return startDate;
         }
 
-        public Object getEndDate() {
+        public LocalDate getEndDate() {
              return endDate;
         }
 }
