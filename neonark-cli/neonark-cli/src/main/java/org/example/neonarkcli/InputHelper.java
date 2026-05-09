@@ -137,6 +137,60 @@ public class InputHelper {
         }
     }
 
+    public static LocalDate getOptionalDate(Scanner scanner, String prompt, LocalDate startDate) {
+        while (true) {
+            System.out.print(prompt + " (YYYY-MM-DD or press Enter to skip): ");
+            String input = scanner.nextLine().strip();
+
+            // 1. Check if the user skipped it
+            if (input.isEmpty()) {
+                return null;
+            }
+
+            try {
+                // 2. Validate format
+                LocalDate date = LocalDate.parse(input);
+
+                // 3. Validate logic (must not be before startDate)
+                if (startDate != null && date.isBefore(startDate)) {
+                    System.out.println("Error: Date cannot be earlier than the start date (" + startDate + ").");
+                } else {
+                    return date; // Valid format and valid logic
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid format. Please use YYYY-MM-DD.");
+            }
+        }
+    }
+
+    public static int getValidInput(Scanner scanner, int min, int max) {
+        int input = -1;
+        boolean isValid = false;
+
+        while (!isValid) {
+            System.out.print("Enter your choice (" + min + "-" + max + "): ");
+
+            // Check if the next thing in the buffer is actually an integer
+            if (scanner.hasNextInt()) {
+                input = scanner.nextInt();
+                scanner.nextLine(); // Clear the newline character from the buffer
+
+                // Check if the integer is within the allowed range
+                if (input >= min && input <= max) {
+                    isValid = true; // Success!
+                } else {
+                    System.out.println("Error: Please enter a number between " + min + " and " + max + ".");
+                }
+            } else {
+                // This runs if they typed letters or symbols
+                System.out.println("Error: Invalid input. Please enter a valid number.");
+                scanner.nextLine(); // Clear the "trash" input from the buffer
+            }
+        }
+
+        return input;
+    }
+
     public static boolean getConfirmation(Scanner scanner, String message) {
         while (true) {
             System.out.print(message + " (Y/N): ");
@@ -148,5 +202,6 @@ public class InputHelper {
             System.out.println("Invalid input. Please enter 'Y' for Yes or 'N' for No.");
         }
     }
+
 
 }

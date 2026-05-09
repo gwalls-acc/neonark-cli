@@ -1,6 +1,6 @@
 package org.example.neonarkcli;
 import java.time.LocalDate;
-import java.util.Scanner;
+
 
 
 
@@ -53,5 +53,36 @@ public class Warden {
             return pid;
         }
 
+        public String getPidType() {
+        return pidType;
+     }
 
+        public  String getFirstName(){
+            return firstName;
+        }
+
+        public  String getLastName(){
+        return lastName;
+       }
+
+        public String getEmail() {
+            return email;
+        }
+
+
+        public String getRole() {
+            return role;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public LocalDate getStartDate() {
+            return startDate;
+        }
+
+        public Object getEndDate() {
+             return endDate;
+        }
 }
