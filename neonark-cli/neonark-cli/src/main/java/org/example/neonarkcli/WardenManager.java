@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class WardenManager {
     //map chosen menu int  to name for level
-    private String mapLevelChoice(int choice) {
+    static  String mapLevelChoice(int choice) {
         return switch (choice) {
             case 1 -> "Alpha";
             case 2 -> "Omega";
@@ -25,7 +25,7 @@ public class WardenManager {
     }
 
     //map chosen menu int  to name for status
-    private String mapStatusChoice(int choice) {
+    static  String mapStatusChoice(int choice) {
         return switch (choice) {
             case 1 -> "Active";
             case 2 -> "OnLeave";
@@ -35,7 +35,7 @@ public class WardenManager {
     }
 
     //map chosen menu int  to name for role
-    private String mapRoleChoice(int choice) {
+     static String mapRoleChoice(int choice) {
         return switch (choice) {
             case 1 -> "Admin";
             case 2 -> "Field";

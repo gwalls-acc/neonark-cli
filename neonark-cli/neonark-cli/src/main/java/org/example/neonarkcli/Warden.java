@@ -1,9 +1,6 @@
 package org.example.neonarkcli;
 import java.time.LocalDate;
 
-
-
-
 public class Warden {
         private  String firstName;
         private  String lastName;
