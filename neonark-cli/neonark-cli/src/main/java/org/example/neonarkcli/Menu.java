@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class Menu
 {
     private final Scanner scanner;
@@ -23,8 +24,8 @@ public class Menu
 
     public Menu(Scanner scanner, String csvPath) {
         this.scanner = scanner;
-        // 2. THIS IS WHERE IT GETS FILLED
-        // We load the CSV data into that list immediately.
+
+        //load data from csv file into database arraylist
         database.addAll(fileService.loadWardensFromCSV("wardens.csv"));
     }
 
