@@ -101,6 +101,7 @@ public class Menu
         System.out.println("[ 1 ] Add Warden");
         System.out.println( "-".repeat(150));
         wardenManager.addWarden(scanner,database);
+        
 
     }
 
@@ -132,43 +133,51 @@ public class Menu
 
     // submenu 2.1 view entire warden's table
     private void viewAllWardens() {
+        boolean backToMain = false;
+        while (!backToMain) {
 
-            System.out.println("\n\n" + "-".repeat(160));
-            System.out.println("[ 2.1 ] View All Wardens");
-            System.out.println("-".repeat(160));
+        System.out.println("\n\n" + "-".repeat(160));
+        System.out.println("[ 2.1 ] View All Wardens");
+        System.out.println("-".repeat(160));
 
-            // Header - Added PID TYPE column
-            String format = "%-12s | %-12s | %-12s | %-15s | %-25s | %-12s | %-6s | %-10s | %-12s | %-12s%n";
+        // Header - Added PID TYPE column
+        String format = "%-12s | %-12s | %-12s | %-15s | %-25s | %-12s | %-6s | %-10s | %-12s | %-12s%n";
 
+        System.out.printf(format,
+                "FIRST NAME", "LAST NAME", "PID TYPE", "PID", "EMAIL", "ROLE", "LVL", "STATUS", "START DATE", "END DATE"
+        );
+        System.out.println("=".repeat(160));
+
+        // Data Rows - Use the same 'format' string!
+        for (Warden w : database) {
             System.out.printf(format,
-                    "FIRST NAME", "LAST NAME", "PID TYPE", "PID", "EMAIL", "ROLE", "LVL", "STATUS", "START DATE", "END DATE"
+                    w.getFirstName(),
+                    w.getLastName(),
+                    w.getPidType(),
+                    w.getId(),
+                    w.getEmail(),
+                    w.getRole(),
+                    w.getLevel(),
+                    w.getStatus(),
+                    w.getStartDate(),
+                    (w.getEndDate() == null ? "N/A" : w.getEndDate())
             );
-            System.out.println("=".repeat(160));
+        }
+        System.out.println("-".repeat(160));
+        System.out.println("-----------Return to Previous Menu--------------");
+        backToMain = InputHelper.getConfirmation(scanner, "Return to Main Menu?");
+    }
 
-            // Data Rows - Use the same 'format' string!
-            for (Warden w : database) {
-                System.out.printf(format,
-                        w.getFirstName(),
-                        w.getLastName(),
-                        w.getPidType(),
-                        w.getId(),
-                        w.getEmail(),
-                        w.getRole(),
-                        w.getLevel(),
-                        w.getStatus(),
-                        w.getStartDate(),
-                        (w.getEndDate() == null ? "N/A" : w.getEndDate())
-                );
-            }
-            System.out.println("-".repeat(160));
         }
 
 
   //submenu 2.2 display all wardens for a specific ID
     private void searchById() {
+        boolean backToMain = false;
+        while (!backToMain) {
         System.out.println("\n\n" + "-".repeat(150));
         System.out.println("[ 2.2 ] View Warden by ID");
-        System.out.println( "-".repeat(150));
+        System.out.println("-".repeat(150));
         System.out.println("User would be prompted for ID");
         System.out.println("HTTP Method: GET");
         System.out.println("Endpoint: /api/wardensByID/{id}");
@@ -193,49 +202,58 @@ public class Menu
         System.out.println("  },");
         System.out.println("]");
 
+        System.out.println("-----------Return to Previous Menu--------------");
+        backToMain = InputHelper.getConfirmation(scanner, "Return to Main Menu?");
+       }
 
     }
 
 
     //submenu 2.3 view all wardens wi4th specified status
     private void viewByStatus() {
-        System.out.println("\n\n" + "-".repeat(150));
-        System.out.println("[ 2.3 ] View Warden by Employment Status");
-        System.out.println( "-".repeat(150));
-        System.out.println("User would be prompted for status");
-        System.out.println("HTTP Method: GET");
-        System.out.println("Endpoint: /api/wardensByStatus/{status}");
-        System.out.println("HTTP Status Codes:");
-        System.out.println("404 Not Found (status not found)");
-        System.out.println("200 OK (success, returns warden JSON for wardens of specified status");
-        System.out.println("Response Body:");
-        System.out.println("Sample request:");
-        System.out.println("GET /api/wardensByStatus/OnLeave");
-        System.out.println("Sample Response");
-        System.out.println("HTTP/1.1 200 OK");
-        System.out.println("Content-Type: application/json");
-        System.out.println("\n[");
-        System.out.println("  {");
-        System.out.println("    \"pid\": \"W-102\",");
-        System.out.println("    \"firstName\": \"Aris\",");
-        System.out.println("    \"lastName\": \"Thorne\",");
-        System.out.println("    \"email\": \"athorne@astral.org\",");
-        System.out.println("    \"role\": \"Astral\",");
-        System.out.println("    \"status\": \"OnLeave\",");
-        System.out.println("    \"startDate\": \"2026-01-15\",");
-        System.out.println("    \"endDate\": null");
-        System.out.println("  },");
-        System.out.println("  {");
-        System.out.println("    \"pid\": \"W-205\",");
-        System.out.println("    \"firstName\": \"Lyra\",");
-        System.out.println("    \"lastName\": \"Vane\",");
-        System.out.println("    \"email\": \"lvane@astral.org\",");
-        System.out.println("    \"role\": \"Field\",");
-        System.out.println("    \"status\": \"OnLeave\",");
-        System.out.println("    \"startDate\": \"2025-11-20\",");
-        System.out.println("    \"endDate\": \"2026-06-01\"");
-        System.out.println("  }");
-        System.out.println("]");
+        boolean backToMain = false;
+        while (!backToMain) {
+            System.out.println("\n\n" + "-".repeat(150));
+            System.out.println("[ 2.3 ] View Warden by Employment Status");
+            System.out.println("-".repeat(150));
+            System.out.println("User would be prompted for status");
+            System.out.println("HTTP Method: GET");
+            System.out.println("Endpoint: /api/wardensByStatus/{status}");
+            System.out.println("HTTP Status Codes:");
+            System.out.println("404 Not Found (status not found)");
+            System.out.println("200 OK (success, returns warden JSON for wardens of specified status");
+            System.out.println("Response Body:");
+            System.out.println("Sample request:");
+            System.out.println("GET /api/wardensByStatus/OnLeave");
+            System.out.println("Sample Response");
+            System.out.println("HTTP/1.1 200 OK");
+            System.out.println("Content-Type: application/json");
+            System.out.println("\n[");
+            System.out.println("  {");
+            System.out.println("    \"pid\": \"W-102\",");
+            System.out.println("    \"firstName\": \"Aris\",");
+            System.out.println("    \"lastName\": \"Thorne\",");
+            System.out.println("    \"email\": \"athorne@astral.org\",");
+            System.out.println("    \"role\": \"Astral\",");
+            System.out.println("    \"status\": \"OnLeave\",");
+            System.out.println("    \"startDate\": \"2026-01-15\",");
+            System.out.println("    \"endDate\": null");
+            System.out.println("  },");
+            System.out.println("  {");
+            System.out.println("    \"pid\": \"W-205\",");
+            System.out.println("    \"firstName\": \"Lyra\",");
+            System.out.println("    \"lastName\": \"Vane\",");
+            System.out.println("    \"email\": \"lvane@astral.org\",");
+            System.out.println("    \"role\": \"Field\",");
+            System.out.println("    \"status\": \"OnLeave\",");
+            System.out.println("    \"startDate\": \"2025-11-20\",");
+            System.out.println("    \"endDate\": \"2026-06-01\"");
+            System.out.println("  }");
+            System.out.println("]");
+
+            System.out.println("-----------Return to Previous Menu--------------");
+            backToMain = InputHelper.getConfirmation(scanner, "Return to Main Menu?");
+        }
 
     }
 
